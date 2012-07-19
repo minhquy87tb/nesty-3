@@ -767,7 +767,7 @@ SQL;
 	 *
 	 * @return  bool
 	 */
-	public function delete()
+	public function delete($events = array('before', 'after'))
 	{
 		if ($this->is_root())
 		{
