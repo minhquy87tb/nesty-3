@@ -1067,7 +1067,16 @@ SQL;
 			if ($before_root_persist !== null and ($result = $before_root_persist($root)) !== false)
 			{
 				$root = $result;
-				$root->save();
+
+				if ( ! $result = $root->save())
+				{
+					if ($root->validation()->errors->has())
+					{
+						throw new Exception('Root menu item failed to save. '.implode('', $root->validation()->errors->all(':message')));
+					}
+
+					throw new Exception('Root menu item failed to save.');
+				}
 			}
 
 			// Get all of the keys who are children of the root
@@ -1104,7 +1113,15 @@ SQL;
 				$root = $result;
 			}
 
-			$root->root();
+			if ( ! $result = $root->root())
+			{
+				if ($root->validation()->errors->has())
+				{
+					throw new Exception('Root menu item failed to save. '.implode('', $root->validation()->errors->all(':message')));
+				}
+
+				throw new Exception('Root menu item failed to save.');
+			}
 		}
 
 		// Loop through items
@@ -1176,8 +1193,17 @@ SQL;
 				$item_m = $result;
 			}
 
-			$item_m->last_child_of($parent)
-			       ->save();
+			$item_m->last_child_of($parent);
+
+			if ( ! $result = $item_m->save())
+			{
+				if ($item_m->validation()->errors->has())
+				{
+					throw new Exception(print_r($item_m, true).'Menu item failed to save. '.implode('', $item_m->validation()->errors->all(':message')));
+				}
+
+				throw new Exception('Menu item failed to save.');
+			}
 
 			// Remove the existing key
 			array_forget($existing_keys, $item_m->id);
@@ -1202,8 +1228,17 @@ SQL;
 				$item_m = $result;
 			}
 
-			$item_m->last_child_of($parent)
-			       ->save();
+			$item_m->last_child_of($parent);
+
+			if ( ! $result = $item_m->save())
+			{
+				if ($item_m->validation()->errors->has())
+				{
+					throw new Exception(print_r($item_m, true).'Menu item failed to save. '.implode('', $item_m->validation()->errors->all(':message')));
+				}
+
+				throw new Exception('Menu item failed to save.');
+			}
 		}
 
 		if ($children !== false)
