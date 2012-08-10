@@ -63,7 +63,7 @@ class Nesty extends Crud
 	 *
 	 * @var Nesty
 	 */
-	public $parent = null;
+	protected $_parent;
 
 	/**
 	 * An array that contains all children models
@@ -467,7 +467,7 @@ class Nesty extends Crud
 		// null as that's what normally
 		// happens when finding a Crud object
 		// that doesn't exist.
-		if ($this->parent === false)
+		if ($this->_parent === false)
 		{
 			return null;
 		}
@@ -477,12 +477,12 @@ class Nesty extends Crud
 		// as false
 		if ($this->is_root())
 		{
-			$this->parent = false;
-			return $this->parent($limit, $columns);
+			$this->_parent = false;
+			return $this->_parent($limit, $columns);
 		}
 
 		// Lazy load parent
-		if ($this->parent === null)
+		if ($this->_parent === null)
 		{
 			// Primary key
 			$key   = static::key();
@@ -533,17 +533,17 @@ SQL;
 			foreach ($results as $parent)
 			{
 				$parent_m = new static($parent);
-				$parent_m->parent = $last_parent;
+				$parent_m->_parent = $last_parent;
 
 				$last_parent = $parent_m;
 			}
 
 			// Finally, the parent model
 			// has all the references to
-			$this->parent = $parent_m;
+			$this->_parent = $parent_m;
 		}
 
-		return $this->parent;
+		return $this->_parent;
 	}
 
 	/**
