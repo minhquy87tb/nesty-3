@@ -884,7 +884,7 @@ SQL;
 	 * @param   string          $type
 	 * @return  mixed
 	 */
-	public function dump_children_as($format)
+	public function dump_children_as($format, $name)
 	{
 		return $this->dump_as($format, $name, 'children');
 	}
