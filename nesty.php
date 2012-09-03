@@ -489,7 +489,7 @@ class Nesty extends Crud
 
 			// Table name
 			$table = static::table();
-			DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].'_'.$table;
+			DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].$table;
 
 			// Nesty cols
 			extract(static::$_nesty_cols, EXTR_PREFIX_ALL, 'n');
@@ -584,7 +584,7 @@ SQL;
 		{
 			// Table name
 			$table = static::table();
-			DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].'_'.$table;
+			DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].$table;
 
 			// Nesty cols
 			extract(static::$_nesty_cols, EXTR_PREFIX_ALL, 'n');
@@ -635,7 +635,7 @@ SQL;
 	{
 		// Table name
 		$table = static::table();
-		DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].'_'.$table;
+		DB::connection(static::$_connection)->config['prefix'] and $table = DB::connection(static::$_connection)->config['prefix'].$table;
 
 		// Primary key
 		$key   = static::key();
