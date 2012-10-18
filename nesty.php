@@ -478,7 +478,7 @@ class Nesty extends Crud
 		if ($this->is_root())
 		{
 			$this->_parent = false;
-			return $this->_parent($limit, $columns);
+			return $this->parent($limit, $columns);
 		}
 
 		// Lazy load parent
